@@ -1,0 +1,63 @@
+<div class="container mt-5">
+  <%= link_to '← Go Back', root_path, class: 'btn btn-link' %>
+  <h2 class="text-center">Errores</h2>
+  <% if @store %>
+    <h3>
+      Productos de API no guardados en Rails
+      <span id="api-to-rails-quantity"></span>
+    </h3>
+    <ul id="api-to-rails-list">
+      <img src="https://upaep.mx/modules/mod_login_ws_id/tmpl/default/images/load.gif" alt="loading..." height=30 id="api-to-rails-loading" />
+      <%# @api_to_rails_products.each do |product| %>
+        <!-- <li>
+          <strong><%# product.sku %></strong>
+          <span><%# product.product_error&.api %></span>
+        </li> -->
+      <%# end %>
+    </ul>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => { 
+        fetch('<%= @store.url_external_api %>')
+        .then((resp) => resp.json())
+        .then((data) => {
+          var products = data.items
+          var products_skus = products.map((x) => { return x.sku }).flat(1)
+          var rails_products = <%= raw @store&.products&.map(&:sku) %>
+          var no_loaded_products_skus = products_skus.filter(el => !rails_products.includes(el));
+          document.getElementById('api-to-rails-loading').style.display = 'none';
+          document.getElementById('api-to-rails-quantity').innerHTML = `(${no_loaded_products_skus.length})`
+          no_loaded_products_skus.map((sku) => {
+            console.log(sku)
+            let node = document.createElement("LI");
+            let strong = document.createElement("STRONG");
+            let textnode = document.createTextNode(sku);
+            strong.appendChild(textnode);
+            node.appendChild(strong);
+            document.getElementById('api-to-rails-list').appendChild(node)
+          })
+        })
+        .catch((e) => {
+          document.getElementById('api-to-rails-list').innerHTML = e
+        })
+      })
+    </script>
+    <hr>
+    <br>
+    <h3>Productos de Rails no guardados en WooCommerce (<%= @rails_to_woo_products.size %>)</h3>
+    <ul>
+      <% @rails_to_woo_products.map do |product| %>
+        <% error_message = product.product_error&.woo || ProductError.create(sku: product.sku, woo: @store.woo_store.post('products', product.as_json_with_attributes)&.parsed_response&.dig('message'))&.woo %>
+        <li>
+          <strong><%= product.sku %></strong>
+          <span><%= error_message %></span>
+        </li>
+      <% end %>
+    </ul>
+    <hr>
+    <br>
+    <h3>Logs</h3>
+  <% end %>
+  <% @errors.reverse.first(100).each do |line| %>
+    <p><%= line %></p>
+  <% end %>
+</div>

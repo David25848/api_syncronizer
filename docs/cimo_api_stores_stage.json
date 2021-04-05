@@ -1,0 +1,40 @@
+{
+  "data": [
+    {
+      "name": "Tienda PLX",
+      "url_woocommerce": "https://tiendasplx.com/cimo-stage-plx/index.php",
+      "url_external_api": "https://www.cimocr.xyz/ords/pedidos_web2/datos/arts2",
+      "sku": "tiendas-plx",
+      "customer_key": "ck_ce8d1fe2642294fe23be6d243a3f5eedadb5456b",
+      "secret_key": "cs_ae19d8481532ae64a1873e0eacf6a1fc39a38e4b",
+      "metadata": {
+        "wp_api": true,
+        "version": "wc/v3"
+      }
+    },
+    {
+      "name": "Shoelab",
+      "url_woocommerce": "https://shoelab.cr/cimo-stage-shoe/index.php/",
+      "url_external_api": "https://www.cimocr.xyz/ords/pedidos_web2/datos/artsL",
+      "sku": "shoelab",
+      "customer_key": "ck_dda08352cf4940c74d47ad590ba57dd11c2647e4",
+      "secret_key": "cs_06c50c8b913af8879ca57ca71307f7331cead6cc",
+      "metadata": {
+        "wp_api": true,
+        "version": "wc/v3"
+      }
+    },
+    {
+      "name": "GoSports",
+      "url_woocommerce": "https://tiendaspls.com/cimo-stage-pls/index.php/",
+      "url_external_api": "https://www.cimocr.xyz/ords/pedidos_web2/datos/artss",
+      "sku": "gosports",
+      "customer_key": "ck_a71e910fbfc1a3aa53efbcf0613eab9f3929ab37",
+      "secret_key": "cs_fff47b48cf997e102c419cd05843295fc730d822",
+      "metadata": {
+        "wp_api": true,
+        "version": "wc/v3"
+      }
+    }
+  ]
+}

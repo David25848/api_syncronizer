@@ -1,0 +1,79 @@
+<div class="fluid-container mt-5">
+  <h1 class="text-center">Dashboard</h1>
+    <h3 class="text-center mt-5"><%= @store.name %></h3>
+    <div class="container-fluid d-flex flex-wrap justify-content-around">
+      <%= link_to dashboard_show_path(@store.sku, 'api') do %>
+        <div class="card info" style="min-width: 200px; margin: 5px">
+          <div class="card-body">
+            <div class="card-title info">ApiCategories</div>
+            <div class="card-number">
+              <%= @store.group_api_categories_by_slug.size %>
+            </div>
+            <div class="card-title info">ApiProducts</div>
+            <div class="card-number">
+              <%= @run_syncronizer.api_products.size%>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <%= link_to dashboard_errors_path(@store.sku) do %>
+        <div class="card info" style="min-width: 200px; margin: 5px">
+          <div class="card-body">
+            <div class="card-title info">NoLoadedProducts<br>in Rails</div>
+              <%= @run_syncronizer.api_products_errors.size%>
+            <div class="card-number">
+              
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <%= link_to dashboard_show_path(@store.sku, 'rails') do %>
+        <div class="card info" style="min-width: 200px; margin: 5px">
+          <div class="card-body">
+            <div class="card-title info">RailsCategories</div>
+            <div class="card-number">
+              <%= @store.classifications.size %>
+            </div>
+            <div class="card-title info">RailsProducts</div>
+            <div class="card-number">
+              <%= @store.products.size %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <%= link_to dashboard_errors_path(@store.sku) do %>
+        <div class="card info" style="min-width: 200px; margin: 5px">
+          <div class="card-body">
+            <div class="card-title info">NoLoadedProducts<br>in WooCommerce</div>
+              <%= @run_syncronizer.woo_products_saved.size - @store.products.size%>
+            <div class="card-number">
+              
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <%= link_to dashboard_show_path(@store.sku, 'woocommerce') do %>
+        <div class="card info" style="min-width: 200px; margin: 5px">
+          <div class="card-body">
+            <div class="card-title info">WooCategories</div>
+              <%= @store.parent_woo_categories.size %>
+            <div class="card-number">
+              
+            </div>
+            <div class="card-title info">WooProducts</div>
+              <%= @run_syncronizer.woo_products_saved.size %>
+            <div class="card-number">
+              
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <%= link_to active_sync_path(store: @store.sku, env: 'production'), class: 'btn-sync' do %>
+         Ejecutar en Produccion
+      <% end %>
+      <%= link_to active_sync_path(store: @store.sku, env: 'stage'), class: 'btn-sync' do %>
+         Ejecutar en Stage
+      <% end %>
+    </div>
+ 
+</div>

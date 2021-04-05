@@ -1,0 +1,64 @@
+:concurrency: 25
+:pidfile: ./tmp/pids/sidekiq.pid
+:logfile: ./log/sidekiq.log
+:queues:
+  - [high_priority, 2]
+  - [mailers, 1]
+  - [default]
+:schedule:
+  synchronizer_health:
+    cron: '* * * * *'
+    class: SynchronizerHealth
+  # api_synchronizer_stage_shoelab:
+  #   # Server is (UTC) +00:00
+  #   # Costa Rica is (GMT-6) -06:00
+  #   # Run syncronizer every day at:
+  #   #                               13:00 at Server Timezone
+  #   #                   - 6 hours = 07:00 at Costa Rica Timezone
+  #   cron: '0 16 * * *'
+  #   class: ApiSynchronizer
+  #   args: ['stage', 'shoelab']
+  # api_synchronizer_stage_plx:
+  #   # Server is (UTC) +00:00
+  #   # Costa Rica is (GMT-6) -06:00
+  #   # Run syncronizer every day at:
+  #   #                               13:00 at Server Timezone
+  #   #                   - 6 hours = 07:00 at Costa Rica Timezone
+  #   cron: '0 18 * * *'
+  #   class: ApiSynchronizer
+  #   args: ['stage', 'tiendas-plx']
+  # api_synchronizer_stage_gosports:
+  #   # Server is (UTC) +00:00
+  #   # Costa Rica is (GMT-6) -06:00
+  #   # Run syncronizer every day at:
+  #   #                               13:00 at Server Timezone
+  #   #                   - 6 hours = 07:00 at Costa Rica Timezone
+  #   cron: '0 20 * * *'
+  #   class: ApiSynchronizer
+  #   args: ['stage', 'gosports']
+  api_synchronizer_production_shoelab:
+    # Server is (UTC) +00:00
+    # Costa Rica is (GMT-6) -06:00
+    # Run syncronizer every 6 hours:
+    cron: '0 */6 * * *'
+    class: ApiSynchronizer
+    args: ['production', 'shoelab']
+  api_synchronizer_production_plx:
+    # Server is (UTC) +00:00
+    # Costa Rica is (GMT-6) -06:00
+    # Run syncronizer every 6 hours:          
+    cron: '0 */6 * * *'
+    class: ApiSynchronizer
+    args: ['production', 'tiendas-plx']
+  api_synchronizer_production_gosports:
+    # Server is (UTC) +00:00
+    # Costa Rica is (GMT-6) -06:00
+    # Run syncronizer every 6 hours:
+    cron: '0 */6 * * *'
+    class: ApiSynchronizer
+    args: ['production', 'gosports']
+  stock_updater_production:
+    # Server is (UTC) +00:00
+    cron: '*/15 * * * *'
+    class: StockUpdater
+    args: []

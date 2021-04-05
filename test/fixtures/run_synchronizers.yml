@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  products_saved: 
+  api_products: 
+  woo_products_saved: 
+  api_products_errors: 
+  products_errors: 
+
+two:
+  products_saved: 
+  api_products: 
+  woo_products_saved: 
+  api_products_errors: 
+  products_errors: 
